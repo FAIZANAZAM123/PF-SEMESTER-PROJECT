@@ -1,0 +1,294 @@
+//AUTHORS NAME:FAIZAN AZAM
+//REGISTRATION NO:L1F20BSCS0550
+//SECTION:A-11
+//DATE:1/7/2021
+#include<iostream>
+using namespace std;
+void input(int arr[][6], const int fields, const int tests);
+void display(int arr[][6], const int fields, const int tests);
+void menu();
+void insert_value_to_array(int arr[][6], const int fields, const int tests, int value);
+void count_test_scores(int arr[][6], const int fields, const int tests);
+void delete_value_from_array(int arr[][6], const int fields, const int tests, int new_value);
+void find_average_of_array(int arr[][6], const int fields, const int tests);
+void display_two_most_frequent_values(int arr[][6], const int fields, const int tests);
+void field_with_maximum_success_score(int arr[][6], const int fields, const int tests);
+int main()
+{
+	const int fields = 4;
+	const int tests = 6;
+	int arr[fields][tests];
+	cout << "ENTER THE ARRAY" << endl;
+	input(arr, fields, tests);
+	cout << endl;
+	do {
+		cout << "THE TABLE  IS : " << endl;
+		display(arr, fields, tests);
+		cout << endl;
+		int user = 0;
+		menu();
+		cin >> user;
+		if (user == 1)
+		{
+			int value = 0;
+			insert_value_to_array(arr, fields, tests, value);
+			cout << "PROGRAM IS SUCCESSFULLY EXECUTED " << endl;
+			cout << endl;
+			display(arr, fields, tests);
+			cout << endl;
+		}
+		if (user == 2)
+		{
+			cout << "PROGRAM IS SUCCESSFULLY EXECUTED " << endl;
+			count_test_scores(arr, fields, tests);
+		}
+		if (user == 3)
+		{
+			int new_value = 0;
+			cout << "PROGRAM IS SUCCESSFULLY EXECUTED " << endl;
+			delete_value_from_array(arr, fields, tests, new_value);
+			display(arr, fields, tests);
+			cout << endl;
+		}
+		if (user == 4)
+		{
+			cout << "PROGRAM IS SUCCESSFULLY EXECUTED " << endl;
+			display_two_most_frequent_values(arr, fields, tests);
+			cout << endl;
+		}
+		if (user == 5)
+		{
+			cout << "PROGRAM IS SUCCESSFULLY EXECUTED " << endl;
+			find_average_of_array(arr, fields, tests);
+			cout << endl;
+		}
+		if (user == 6)
+		{
+			field_with_maximum_success_score(arr, fields, tests);
+			cout << endl;
+		}
+		if (user == 7)
+		{
+			cout << "**********************THANKYOU********************************";
+			break;
+		}
+	} while (1);
+
+	return 0;
+}
+void input(int arr[][6], const int fields, const int tests)
+{
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			cin >> arr[i][j];
+		}
+	}
+}
+void display(int arr[][6], const int fields, const int tests)
+{
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			cout << arr[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+void menu()
+{
+	cout << "Press 1 TO INSERT NEW RESULT" << endl;
+	cout << "Press 2 TO DISPLAY TOTAL NUMBER OF RESULTS IN TABLE." << endl;
+	cout << "Press 3 TO DELETE ANY TEST VALUE FROM TABLE." << endl;
+	cout << "Press 4 TO DISPLAY THE 2 MOST FREQUENT VALUES IN THE TABLE." << endl;
+	cout << "Press 5 TO DISPLAY AVERAGE SCORES OF EACH FIELD." << endl;
+	cout << "Press 6 TO DISPLAY FIELD HAVING MAXIMUM SCORE." << endl;
+	cout << "Press 7 TO EXIT THE PROGRAM " << endl;
+	cout << "ENTER YOUR CHOICE : ";
+}
+void insert_value_to_array(int arr[][6], const int fields, const int tests, int value)
+{
+	bool flag = 0;
+	cout << "ENTER THE VALUE YOU WANT TO INSERT " << endl;
+	cin >> value;
+	int loc = 0;
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			if (arr[i][j] == -1)
+			{
+				flag = 1;
+				arr[i][j] = value;
+				break;
+			}
+			loc++;
+		}
+		if (flag)
+		{
+			cout << value << " IS ENTERED IN FIELD " << i + 1 << " on location " << loc << endl;
+			break;
+		}
+	}
+}
+void count_test_scores(int arr[][6], const int fields, const int tests)
+{
+	int count = 0;
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			if (arr[i][j] != -1)
+			{
+				count++;
+			}
+		}
+	}
+	cout << "THERE ARE " << count << " TEST SCORES VALUES ENTERED IN THE TABLE" << endl;
+	cout << endl;
+}
+void delete_value_from_array(int arr[][6], const int fields, const int tests, int new_value)
+{
+	cout << "ENTER THE VALUE WHICH YOU WANT TO DELETE : " << endl;
+	cin >> new_value;
+	bool flag = 0;
+	int location = 0;
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			if (arr[i][j] == new_value)
+			{
+				flag = 1;
+				arr[i][j] = -1;
+				break;
+			}
+
+		}
+		if (flag)
+		{
+			break;
+		}
+	}
+}
+void find_average_of_array(int arr[][6], const int fields, const int tests)
+{
+	float sum1[4] = {};
+	int countarr = 0;
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+			if (arr[i][j] != -1)
+			{
+				sum1[i] += arr[i][j];
+				countarr++;
+			}
+		}
+		float size[4];
+		size[i] = countarr;
+		countarr = 0;
+		float average_of_all[4];
+		average_of_all[i] = sum1[i] / size[i];
+		if (size[i] == 0)
+		{
+			cout << "THE FIELD " << i + 1 << " IS EMPTY " << endl;
+		}
+		else
+		{
+			cout << "THE AVERAGE SCORE OF THE FIELD " << i + 1 << " is " << average_of_all[i] << endl;;
+		}
+	}
+}
+void field_with_maximum_success_score(int arr[][6], const int fields, const int tests)
+{
+	int maximum_of_all = arr[0][0];
+	int index = 0;
+	for (int i = 0; i < fields; i++)
+	{
+		for (int j = 0; j < tests; j++)
+		{
+				if (arr[i][j] > maximum_of_all)
+				{
+					maximum_of_all = arr[i][j];
+
+					index = i;
+				}
+			}		
+	}
+	if (maximum_of_all > 0)
+	{
+		cout << "FIELD " << index + 1 << " have maximum value " << endl;
+	}
+	else
+	{
+		cout << "THERE IS NO MAXIMUM FIELD BECAUSE ALL THE FIELDS ARE EMPTY " << endl;
+	}
+}
+void display_two_most_frequent_values(int arr[][6], const int fields, const int tests)
+{
+	int temp = 0, temp_l = 0;
+	int first = 0;
+	int second = 0;
+	int firstno = 0;
+	int secondno = 0;
+	for (int f = 0; f < fields; f++)
+	{
+		for (int s = 0; s < tests; s++)
+		{
+			if (arr[f][s] != -1 && arr[f][s] != first)
+			{
+				temp = arr[f][s];
+				temp_l = 0;
+
+				for (int i = 0; i < fields; i++)
+				{
+					for (int j = 0; j < tests; j++)
+					{
+						if (temp == arr[i][j])
+						{
+							temp_l++;
+						}
+					}
+				}
+				if (temp_l > firstno)
+				{
+					first = temp;
+					firstno = temp_l;
+				}
+			}
+		}
+	}
+	temp = 0; temp_l = 0;
+	for (int f = 0; f < fields; f++)
+	{
+		for (int s = 0; s < tests; s++)
+		{
+			if (arr[f][s] != -1 && arr[f][s] != second && arr[f][s] != first)
+			{
+				temp = arr[f][s];
+				temp_l = 0;
+				for (int i = 0; i < fields; i++)
+				{
+					for (int j = 0; j < tests; j++)
+					{
+						if (temp == arr[i][j])
+						{
+							temp_l++;
+						}
+					}
+				}
+				if ((temp_l > secondno) && (secondno < firstno))
+				{
+					second = temp;
+					secondno = temp_l;
+				}
+			}
+		}
+	}
+	cout << first << " is  occurrence " << firstno << " times" << endl;
+	cout << second << " is  occurrence " << secondno << " times" << endl;
+	
+}
